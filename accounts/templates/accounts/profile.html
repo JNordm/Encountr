@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Votre orofil - Encountr</title>
+</head>
+<body>
+	<h1>Votre profil</h1>
+	<p>Email</p>
+	{{email}}
+	<p>Prénom</p>
+	{{first_name}}
+	<a href="{% url 'editProfile' %}">Modifier votre profil</a><br>
+	<a href="{% url 'editPassword' %}">Changer votre mot de passe</a><br>
+	<a href="{% url 'logoutUser' %}">Se déconnecter</a><br>
+</html>

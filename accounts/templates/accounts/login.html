@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Se connecter - Encountr</title>
+</head>
+<body>
+	<h1>Se connecter</h1>
+	{% for message in messages %}
+	{{message}}
+	{% endfor %}
+	<form action = "" method="POST">
+		{% csrf_token %}
+		<p>E-mail</p>
+		<input type="text" name="email" placeholder="Votre email">
+		<p>Mot de passe</p>
+		<input type="password" name="password" placeholder="Votre mot de passe">
+		<a href="{% url 'password_reset' %}">Mot de passe oublié ?</a>
+		<input type="submit" value="Valider">
+	</form>
+	<p>Vous n'êtes pas encore inscrit ? <a href="../register">S'inscrire</a></p>
+</body>
+</html>

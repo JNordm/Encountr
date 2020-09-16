@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>S'inscrire - Encountr</title>
+</head>
+<body>
+	<h1>S'inscrire</h1>
+	{{form.errors}}
+	<form action = "" method = "POST">
+		{% csrf_token %}
+		<p>Email</p>
+		{{form.email}}
+		<p>Prénom</p>
+		{{form.first_name}}
+		<p>Mot de passe</p>
+		{{form.password1}}
+		<p>Confirmation du mot de passe</p>
+		{{form.password2}}
+		<input type="submit" value="Valider">
+	</form>
+	<p>Vous êtes déjà inscrit ? <a href="../login">Connectez-vous</a></p>
+</body>
+</html>
