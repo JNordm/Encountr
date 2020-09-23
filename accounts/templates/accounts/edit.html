@@ -1,19 +1,22 @@
+{% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Modifier votre profil - Encountr</title>
+	<title>{% block title %}Modifier votre profil - Encountr{% endblock %}</title>
 </head>
 <body>
-	<h1>Modifier votre profil</h1>
-	{{form.errors}}
-	<form method="POST">
-		{% csrf_token %}
-		<p>Changer votre email</p>
-		{{form.email}}
-		<p>Changer votre prénom</p>
-		{{form.first_name}}
-		<input type="submit" value="Valider">
-	</form>
+	{% block section %}
+		<h1>Modifier votre profil</h1>
+		{{form.errors}}
+		<form method="POST">
+			{% csrf_token %}
+			<p>Changer votre email</p>
+			{{form.email}}
+			<p>Changer votre prénom</p>
+			{{form.first_name}}
+			<input type="submit" value="Valider">
+		</form>
+	{% endblock %}
 </body>
 </html>

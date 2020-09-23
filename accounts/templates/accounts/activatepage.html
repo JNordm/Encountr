@@ -1,11 +1,14 @@
+{% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Activer votre compte - Encountr</title>
+	<title>{% block title %}Activer votre compte - Encountr{% endblock %}</title>
 </head>
 <body>
-	<h1>Bienvenue sur Encountr ! </h1>
-	<p>Pour activer votre compte, veuillez vérifier vos emails et cliquer sur le lien reçu de notre part.</p>
+	{% block section %}
+		<h1>Bienvenue sur Encountr ! </h1>
+		<p>Pour activer votre compte, veuillez vérifier vos emails et cliquer sur le lien reçu de notre part.</p>
+	{% endblock %}
 </body>
 </html>

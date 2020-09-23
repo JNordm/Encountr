@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Accueil - Encountr{% endblock %}</title>
+	{% block urls %}<link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">{% endblock %}
+</head>
+<body>
+	{% block section %}
+	<div class = 'hero-image'>
+		<div class='container'>
+			<h1>Travaillez avec qui vous voulez.<br>Vraiment.</h1><br>
+			<div class="icon-scroll"></div>
+		</div>
+	</div>
+	<section class="sec">
+		<div class="content">
+			<div class="textbox">
+				<h2 id='title'>Je veux postuler</h2>
+				<p id = 'text'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</div>
+			<div class="imgbox">
+				<img src="{% static 'pages/jepostule.png' %}" class = 'imgsec'>
+			</div>
+		</div>
+		<ul class='thumb'>
+			<li><img src="{% static 'pages/jepostule.png' %}" onclick='imgSlider("{% static 'pages/jepostule.png' %}"); changeBgColor("#C8B59A") ; changeH1()'></li>
+			<li><img src="{% static 'pages/jerecrute.png' %}" onclick='imgSlider("{% static 'pages/jerecrute.png' %}"); changeBgColor("#000"); changeH2() '></li>
+			<li><img src="{% static 'pages/jemassocie.png' %}"  onclick='imgSlider("{% static 'pages/jemassocie.png' %}"); changeBgColor("#F4F2EF") ; changeH3()'></li>
+		</ul>
+	</section>
+	<script type="text/javascript">
+		function imgSlider(anything){
+			document.querySelector('.imgsec').src = anything;
+		}
+
+		function changeBgColor(color){
+			const sec = document.querySelector('.sec');
+			sec.style.background = color;
+		}
+
+		function changeH1(){
+			let title = document.getElementById('title');
+			let text = document.getElementById('text');
+			title.textContent = 'Je veux postuler';
+			title.style.color = '#000';
+			text.style.color = '#F4F2EF';
+		}
+
+		function changeH2(){
+			let title = document.getElementById('title');
+			let text = document.getElementById('text');
+			title.textContent = 'Je veux recruter';
+			title.style.color = '#F4F2EF';
+			text.style.color = '#C8B59A';
+		}
+
+		function changeH3(){
+			let title = document.getElementById('title');
+			let text = document.getElementById('text');
+			title.textContent = "Je veux m'associer";
+			title.style.color = '#C8B59A';
+			text.style.color = '#0F1E6D'
+		}
+	</script>
+	{% endblock %}
+</body>
+</html>l
