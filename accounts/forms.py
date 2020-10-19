@@ -21,6 +21,10 @@ CONTRATS = [
 		('CPA', "Contrat de professionnalisation - Alternance"), 
 		('CUI', "CUI - Contrat unique d'insertion"),
 	]
+BOOL_CHOICES = [
+		(True, 'Oui'),
+		(False, 'Non'),
+	]
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -64,14 +68,18 @@ class CustomUserCreationForm(UserCreationForm):
 		return birthdate
 
 class CustomUserChangeForm(UserChangeForm):
-
+	is_first_job = forms.BooleanField(required = False)
+	
 	class Meta:
 		results_profession = Profession.objects.all()
 		results_formation = Formation.objects.all()
 		results_location = Location.objects.all()
 		results_diplome = Diplome.objects.all()
 		model = CustomUser
-		fields = ('email', 'first_name', 'birthdate', 'last_name', 'role', 'profession', 'formation', 'location', 'profile_pic', 'curriculum_vitae', 'contrat', 'diplome')
+		fields = 	('email', 'first_name', 'birthdate', 
+					'last_name', 'role', 'profession', 
+					'formation', 'location', 'profile_pic', 
+					'curriculum_vitae', 'contrat', 'diplome', 'is_first_job')
 		widgets = {
 			'profession': ListTextWidget(data_list = results_profession, name = 'profession-list'),
 			'formation': ListTextWidget(data_list = results_formation, name = 'formation-list'),

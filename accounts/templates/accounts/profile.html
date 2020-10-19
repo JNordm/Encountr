@@ -30,8 +30,10 @@
 		<p>{{user.age}} ans</p>		
 		{{user.profession}}<br>
 		{{user.location}}<br>
+		{% if user.role == "Employee" %}
 		{{user.formation}}<br>
 		{{user.diplome}}<br><br>
+		{% endif %}
 		{% if user.role == "Employer" %}
 		<p>Employeur</p>
 		{% elif user.role == "Employee" %}

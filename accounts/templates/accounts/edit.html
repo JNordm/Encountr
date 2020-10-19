@@ -55,6 +55,8 @@
 					<h4>Ajouter votre CV (facultatif)</h4>
 					{{form.curriculum_vitae}}
 
+
+
 				{% elif request.user.role == "Employer" %}
 
 				{% else %}
@@ -100,6 +102,9 @@
 
 					<h4>Modifier votre CV (facultatif)</h4>
 					{{form.curriculum_vitae}}
+
+					<h4>Premier emploi</h4>
+					{{form.is_first_job}}
 
 				{% elif request.user.role == "Employer" %}
 
