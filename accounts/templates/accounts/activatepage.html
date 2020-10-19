@@ -4,11 +4,18 @@
 <html>
 <head>
 	<title>{% block title %}Activer votre compte - Encountr{% endblock %}</title>
+	{% block urls %}<link rel="stylesheet" type="text/css" href="{% static 'accounts/activate.css' %}">{% endblock %}
 </head>
 <body>
 	{% block section %}
-		<h1>Bienvenue sur Encountr ! </h1>
-		<p>Pour activer votre compte, veuillez vérifier vos emails et cliquer sur le lien reçu de notre part.</p>
+	<section class = 'hero-image'>
+		<div class = "text">
+			<h1>Bienvenue sur Encountr ! </h1>
+			<p>Pour activer votre compte, veuillez vérifier vos emails et cliquer sur le lien reçu de notre part.</p>
+			<a href="{% url 'homePage' %}">Retourner à l'accueil</a>
+		</div>
+		<img src="{% static 'accounts/activatepage.svg' %}">
+	</section>
 	{% endblock %}
 </body>
 </html>

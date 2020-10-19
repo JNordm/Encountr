@@ -1,0 +1,121 @@
+:root
+{
+	--main-color : #0F1E6D;
+	--text-color : #3E4AB8;
+	--background-color : #EDE6DE;
+	--second-color : #E0A526;
+}
+
+@font-face
+{
+	font-family: 'montserrat-alternates';
+	src : url('montserrat-alternates.ttf') format('truetype'),
+		  url('montserrat-alternates.otf') format('otf');
+
+}
+.row
+{
+	align-items: center;
+	position: relative;
+	padding-top: 10px;
+}
+
+#textelogo
+{
+	text-align: right;
+	z-index: 2;
+
+}
+
+#textelogo img
+{
+	width: 150px;
+}
+
+.col-2
+{
+	margin-top: 5px;
+}
+
+#logo
+{
+	z-index: 2;
+
+}
+
+#logo img
+{
+	width: 180px;
+	z-index: 2;
+}
+label
+{
+	z-index: 2;
+	font-size: 25px;
+	color : var(--second-color);
+	visibility: hidden;
+	position: absolute;
+	right: 12px;
+	top: 12px;
+	float: right;
+}
+
+#toggle
+{
+	z-index: 2;
+	display: none;
+
+	
+}
+
+@media only screen and (max-width: 670px){
+	label
+	{
+		visibility: visible;
+		cursor: pointer;
+
+	}
+
+	#navbar
+	{
+		
+		flex-direction: column;
+		position: absolute;
+		top : 20%;
+		right: 6%;
+		visibility: hidden;
+	}
+
+	.link
+	{
+		border-bottom:2px solid black;
+		width: 30%;
+	}
+
+	#toggle:checked + #navbar
+	{
+		visibility: visible;
+	}
+}
+
+
+#navbar
+{
+	text-align: right;
+	display: flex;
+	justify-content: flex-end;
+	z-index: 2;
+}
+
+#navbar a
+{
+	color : var(--second-color);
+	text-decoration: none;
+	margin : 1%;
+}
+
+#navbar a:hover
+{
+	color : var(--background-color);
+}
+

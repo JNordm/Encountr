@@ -1,0 +1,101 @@
+:root
+{
+	--main-color : #0F1E6D;
+	--text-color : #3E4AB8;
+	--background-color : #F4F2EF;
+	--second-color : #C8B59A;
+}
+
+@font-face
+{
+	font-family: 'montserrat-alternates';
+	src : url('montserrat-alternates.ttf') format('truetype'),
+		  url('montserrat-alternates.otf') format('otf');
+
+}
+
+html, body
+{
+	height: 100%;
+	margin : 0;
+	padding : 0;
+	background: var(--background-color);
+	font-family: 'montserrat-alternates';
+	scroll-behavior: smooth;
+}
+
+.hero-image
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.hero-image .text
+{
+	padding : 70px;
+}
+
+.hero-image h1
+{
+	font-weight: 600;
+	color : var(--main-color);
+}
+
+
+
+.hero-image img
+{
+	width: 500px;
+	margin : 70px;	
+}
+
+.hero-image a
+{
+	color : var(--main-color);
+	border : 2px solid var(--second-color);
+	padding : 10px;
+	border-radius: 10px;
+}
+
+.hero-image a:hover
+{
+	text-decoration: none;
+	color : var(--second-color);
+}
+
+@media only screen and (max-width: 1060px){
+	.hero-image
+	{
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.hero-image .text
+	{
+		width: 600px;
+	}
+
+	.hero-image img
+	{
+		width: 400px;
+	}
+}
+
+@media only screen and (max-width: 660px){
+	.hero-image img
+	{
+		width: 300px;
+	}
+
+	header
+	{
+		display: none;
+	}
+
+	.hero-image .text
+	{
+		width: 100%;
+	}
+}

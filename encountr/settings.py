@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'pages',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,
+        }
     }
 }
 
@@ -101,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -123,6 +127,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 #email settings
@@ -139,3 +147,11 @@ EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND
+
+#import_export pour formations /  professions
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+#mapbox pour location field
+
+MAPBOX_KEY = "pk.eyJ1IjoiamVhbnByYnQiLCJhIjoiY2tnN2xuc3ZqMDhlOTJxbnZ2dW9zZDlteSJ9.lZpCZJU_IQKFu6aDbOeQaA"

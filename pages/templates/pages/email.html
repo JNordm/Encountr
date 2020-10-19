@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>  
+		<h1>Merci d'avoir rejoint Encountr !</h1>
+		<p>Vous n'avez plus qu'à confirmer votre adresse e-mail en cliquant sur le lien ci-dessous.
+		http://{{ domain }}{% url 'activateUser' uidb64=uid token=token %}  
+		Si vous ne vous êtes pas inscrit, vous n'avez qu'à ignorer cet e-mail.</p>
+</body>
+</html>

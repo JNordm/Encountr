@@ -7,15 +7,111 @@
 </head>
 <body>
 	{% block section %}
-		<h1>Modifier votre profil</h1>
-		{{form.errors}}
-		<form method="POST">
-			{% csrf_token %}
-			<p>Changer votre email</p>
-			{{form.email}}
-			<p>Changer votre prénom</p>
-			{{form.first_name}}
-			<input type="submit" value="Valider">
+	{% if not request.user.contrat %}
+	<h1>Compléter votre profil</h1>
+	{% else %}
+	<h1>Modifier votre profil</h1>
+	{% endif %}
+	{{form.errors}}
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}	
+			{% if not request.user.contrat %}
+
+				<h4>Modifier votre statut</h4>
+				<p>Je recherche {{form.role}}</p>
+
+				<h4>Modifier votre prénom</h4>
+				{{form.first_name}}
+
+				<h4>Modifier votre nom de famille</h4>
+				{{form.last_name}}
+
+				<h4>Modifier votre email</h4>
+				{{form.email}}
+
+				<h4>Modifier votre date de naissance</h4>
+				{{form.birthdate}}
+
+				<h4>Ajouter votre profession</h4>
+				{{form.profession}}
+
+				<h4>Ajouter votre localisation</h4>
+				{{form.location}}
+
+				<h4>Ajouter votre photo de profil</h4>
+				{{form.profile_pic}}
+
+				{% if request.user.role == "Employee" %}
+
+					<h4>Ajouter votre établissement de formation</h4>
+					{{form.formation}}
+
+					<h4>Ajouter votre diplôme le plus élevé (ou certification professionelle)</h4>
+					{{form.diplome}}
+
+					<h4>Ajouter votre type de contrat souhaité</h4>
+					{{form.contrat}}
+
+					<h4>Ajouter votre CV (facultatif)</h4>
+					{{form.curriculum_vitae}}
+
+				{% elif request.user.role == "Employer" %}
+
+				{% else %}
+
+				{% endif %}
+
+			{% else %}
+
+				<h4>Modifier votre statut</h4>
+				<p>Je recherche {{form.role}}</p>
+
+				<h4>Modifier votre prénom</h4>
+				{{form.first_name}}
+
+				<h4>Modifier votre nom de famille</h4>
+				{{form.last_name}}
+
+				<h4>Modifier votre email</h4>
+				{{form.email}}
+
+				<h4>Modifier votre date de naissance</h4>
+				{{form.birthdate}}
+
+				<h4>Modifier votre profession</h4>
+				{{form.profession}}
+
+				<h4>Modifier votre localisation</h4>
+				{{form.location}}
+
+				<h4>Modifier votre photo de profil</h4>
+				{{form.profile_pic}}
+
+				{% if request.user.role == "Employee" %}
+
+					<h4>Modifier votre établissement de formation</h4>
+					{{form.formation}}
+
+					<h4>Modifier votre diplôme le plus élevé (ou certification professionelle)</h4>
+					{{form.diplome}}
+
+					<h4>Modifier votre type de contrat souhaité</h4>
+					{{form.contrat}}
+
+					<h4>Modifier votre CV (facultatif)</h4>
+					{{form.curriculum_vitae}}
+
+				{% elif request.user.role == "Employer" %}
+
+					<h4>Modifier votre type de contrat souhaité</h4>
+					{{form.contrat}}
+					
+				{% else %}
+
+				{% endif %}
+
+			{% endif %}
+		<input type="submit" value="Valider">
 		</form>
 	{% endblock %}
 </body>

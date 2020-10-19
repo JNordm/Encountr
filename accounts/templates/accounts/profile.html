@@ -3,16 +3,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{% block title %}Votre orofil - Encountr{% endblock %}</title>
+	<title>{% block title %}Votre profil - Encountr{% endblock %}</title>
 </head>
 <body>
 	{% block section %}		
 		<h1>Votre profil</h1>
-		<p>Email</p>
-		{{email}}
-		<p>Prénom</p>
-		{{first_name}}
+		{% for message in messages %}
+		{{message}}
+		{% endfor %}<br>
+
+		{% if user.profile_pic%}		
+		<img src="{{user.profile_pic.url}}" width = "180" style ="border-radius: 50%"><br>
+		{% else %}
+		<img src="{% static 'accounts/default_profile_picture.svg' %}" width="200">
+		{% endif %}<br>
+
+		{{user.first_name}}
+		{{user.last_name}}<br>
+
+		{% if user.curriculum_vitae %}
+		<a href="media/{{user.curriculum_vitae}}">Votre CV</a>
+		{% else %}
+		<small>Pas de CV téléchargé</small>
+		{% endif %}
+
+		<p>{{user.age}} ans</p>		
+		{{user.profession}}<br>
+		{{user.location}}<br>
+		{{user.formation}}<br>
+		{{user.diplome}}<br><br>
+		{% if user.role == "Employer" %}
+		<p>Employeur</p>
+		{% elif user.role == "Employee" %}
+		<p>Employé</p>
+		{% else %}
+		<p>Associé</p>
+		{% endif %}
+			
+		{% if not request.user.contrat %}
+		<a href="{% url 'editProfile' %}">Compléter votre profil</a><br>
+		{% else %}
 		<a href="{% url 'editProfile' %}">Modifier votre profil</a><br>
+		{% endif %}
 		<a href="{% url 'editPassword' %}">Changer votre mot de passe</a><br>
 		<a href="{% url 'logoutUser' %}">Se déconnecter</a><br>
 	{% endblock %}

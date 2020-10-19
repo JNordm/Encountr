@@ -4,17 +4,44 @@
 <html>
 <head>
 	<title>{% block title %}Accueil - Encountr{% endblock %}</title>
-	{% block urls %}<link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">{% endblock %}
+	{% block urls %}
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js">
+	<link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">
+	<script src="https://kit.fontawesome.com/f9b1712bea.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+	{{ form.media }}
+	{% endblock %}
 </head>
 <body>
+	{% block header %}
+	<div class="container-fluid">
+		<div class = "row">		
+			<div class="col-2" id = "logo"><a href="{% url 'homePage' %}"><img src="{% static 'royaltylogobar.png' %}"></a></div>
+			<label for ="toggle">&#9776;</label>
+			<input type="checkbox" id="toggle">	
+			<div class="col" id = "navbar">
+				<a href="#">Télécharger</a>
+				<a href="#fonctionnement">Fonctionnement</a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'profilePage' %}">Votre profil</a>
+				{% else %}
+				<a href="#loginregister">Se connecter / S'inscrire</a>
+				{% endif %}
+			</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
 	{% block section %}
 	<div class = 'hero-image'>
 		<div class='container'>
-			<h1>Travaillez avec qui vous voulez.<br>Vraiment.</h1><br>
+			<h1>Commençons à travailler <br> ensemble.</h1><br>
 			<div class="icon-scroll"></div>
 		</div>
 	</div>
-	<section class="sec">
+	<section class="sec" id ="fonctionnement">
 		<div class="content">
 			<div class="textbox">
 				<h2 id='title'>Je veux postuler</h2>
@@ -26,15 +53,102 @@
 				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 			</div>
 			<div class="imgbox">
-				<img src="{% static 'pages/jepostule.png' %}" class = 'imgsec'>
+				<img src="{% static 'pages/jepostule.svg' %}" class = 'imgsec'>
 			</div>
 		</div>
 		<ul class='thumb'>
-			<li><img src="{% static 'pages/jepostule.png' %}" onclick='imgSlider("{% static 'pages/jepostule.png' %}"); changeBgColor("#C8B59A") ; changeH1()'></li>
-			<li><img src="{% static 'pages/jerecrute.png' %}" onclick='imgSlider("{% static 'pages/jerecrute.png' %}"); changeBgColor("#000"); changeH2() '></li>
-			<li><img src="{% static 'pages/jemassocie.png' %}"  onclick='imgSlider("{% static 'pages/jemassocie.png' %}"); changeBgColor("#F4F2EF") ; changeH3()'></li>
+			<li><img src="{% static 'pages/jepostule.svg' %}" width = "80px" onclick='imgSlider("{% static 'pages/jepostule.svg' %}"); changeBgColor("#C8B59A") ; changeH1()'></li>
+			<li><img src="{% static 'pages/jerecrute.svg' %}" width = "80px" onclick='imgSlider("{% static 'pages/jerecrute.svg' %}"); changeBgColor("#000"); changeH2() '></li>
+			<li><img src="{% static 'pages/jemassocie.svg' %}" width = "80px" onclick='imgSlider("{% static 'pages/jemassocie.svg' %}"); changeBgColor("#F4F2EF") ; changeH3()'></li>
 		</ul>
 	</section>
+	{% if user.is_authenticated%}
+	{% else %}
+	<section class="secform" id = "loginregister">
+		<div class="containerform">
+			<div class="forms-container">
+				<div class="signin-signup">
+					<form class="sign-in-form" action = "{% url 'login' %}" method = "POST">
+						{%csrf_token%}
+						{% for message in messages %}
+						{{message}}
+						{% endfor %}
+						<h2 class="titleform">Se connecter</h2>
+						<div class="input-fields">
+							<i class="fas fa-envelope-open"></i>
+							<input type="email" name = "email" placeholder="Votre e-mail">
+						</div>
+						<div class="input-fields">
+							<i class="fas fa-lock"></i>
+							<input type="password" name = "password" placeholder="Votre mot de passe">
+						</div>
+						<input type="submit" value="Valider" class = "button-form">
+					</form>
+
+					<form class="sign-up-form" action = "" method = "POST" id = "signupform">
+						{% csrf_token %}
+						{{form.errors}}
+						<h2 class="titleform">S'inscrire</h2>
+						<div class="input-fields">
+							<i class="fas fa-user"></i>
+							<p class = "roletext">Vous recherchez  {{form.role}}</p>
+						</div>
+						<div class = "names">
+							<div class="name-input-fields">
+								<i class="fas fa-user"></i>
+								{{form.first_name}}
+							</div>
+							<div class="name-input-fields">
+								<i class="fas fa-user"></i>
+								{{form.last_name}}
+							</div>
+						</div>
+						<div class="input-fields">
+							<i class="fas fa-envelope-open"></i>
+							{{form.email}}
+						</div>
+						<div class="input-fields">
+							<i class="fas fa-birthday-cake"></i>
+							{{form.birthdate}}
+						</div>
+						<div class="input-fields">
+							<i class="fas fa-lock"></i>
+							{{form.password1}}
+						</div>
+						<div class="input-fields">
+							<i class="fas fa-lock"></i>
+							{{form.password2}}
+						</div>
+
+						<input type="submit" value="Valider" class = "button-form">
+					</form>
+				</div>
+			</div>
+			<div class="panels-container">
+				<div class="panel left-panel">
+					<div class="contentform">
+						<h3>Première visite ?<h3>
+						<p class = 'buttontext'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<button class = "button-form transparent" id = "sign-up-btn">S'inscrire</button>
+					</div>
+					<img src="{% static 'pages/registerimage.svg' %}" class="image">
+				</div> 
+				
+				<div class="panel right-panel">
+					<div class="contentform">
+						<h3>Déjà parmi nous ?<h3>
+						<p class = 'buttontext'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<button class = "button-form transparent" id = "sign-in-btn">Se connecter</button>
+					</div>
+					<img src="{% static 'pages/loginimage.svg' %}" class="image">
+				</div> 
+			</div>	
+		</div>
+	</section>
+	{% endif %}
+	
 	<script type="text/javascript">
 		function imgSlider(anything){
 			document.querySelector('.imgsec').src = anything;
@@ -69,6 +183,18 @@
 			text.style.color = '#0F1E6D'
 		}
 	</script>
+	<script>
+	  $(function () {
+	    $("#id_date").datepicker({
+	      format:'dd/mm/yyyy',
+	      uiLibrary : 'bootstrap4', iconsLibrary:'materialicons',
+	    });
+	  });
+	</script>
+	  <script>
+        $('#datepicker').datepicker();
+    </script>
+	<script type="text/javascript" src="{% static 'pages/home.js' %}"></script>
 	{% endblock %}
 </body>
-</html>l
+</html>

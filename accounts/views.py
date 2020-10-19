@@ -12,24 +12,25 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.http import HttpResponse
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
-
+from .forms import CustomUserCreationForm, CustomUserChangeForm, UploadFileForm
+from .models import CustomUser, Profession, Formation, Location, Diplome
+from .resources import ProfessionResource
 # Create your views here.
 
 @login_required
 def profilePage(request):
-	email = request.user.email
-	first_name = request.user.first_name
+	user = request.user
 	return render (request, 'accounts/profile.html', locals())
 
 def editProfile(request):
 	if request.method == 'POST':
-		form = CustomUserChangeForm(request.POST, instance = request.user)
-		if form.is_valid : 
+		form = CustomUserChangeForm(request.POST, request.FILES, instance = request.user)
+		if form.is_valid(): 
 			form.save()
 			messages.success(request, 'Votre compte a bien été mis à jour !')
 			return redirect('profilePage')
+		else : 
+			return render(request, 'accounts/edit.html',locals())
 	else:
 		form = CustomUserChangeForm(instance = request.user)
 		return render(request, 'accounts/edit.html', locals())
@@ -49,30 +50,6 @@ def editPassword(request):
 	
 	return render(request, 'accounts/editpassword.html', locals())	
 
-def registerPage(request):
-	form = CustomUserCreationForm()
-	if request.method == 'POST':
-			form = CustomUserCreationForm(request.POST)
-			if form.is_valid():
-				first_name = form.cleaned_data.get('first_name')
-				user = form.save()
-				user.is_active = False
-				user.save()
-				current_site = get_current_site(request)
-				subject= 'Activate your account - Thanks for signing up at Encountr !'
-				message = render_to_string('accounts/email.html',
-					{
-						'user':user,
-						'domain':current_site.domain,
-						'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-						'token': default_token_generator.make_token(user),
-					})
-				from_email = settings.EMAIL_HOST_USER
-				mail_to = [form.cleaned_data.get('email'), settings.EMAIL_HOST_USER]
-				send_mail(subject, message, from_email, mail_to, fail_silently = False)
-			return redirect('activatePage')
-	return render (request, 'accounts/register.html', locals())
-
 
 def activateUser(request, uidb64, token):
 	try:
@@ -86,23 +63,69 @@ def activateUser(request, uidb64, token):
 		first_name = user.first_name
 		messages.success(request, 'Bienvenue sur Encountr,' + ' ' + first_name + ' !') 
 		messages.success(request, 'Votre compte a été activé, veuillez maintenant vous connecter pour accéder à votre compte.')
-		return redirect('loginPage')
+		return redirect('homePage')
 	else : 
 		return HttpResponse("Votre lien d'activation est invalide !")
 
-def loginPage(request):
-	if request.method == 'POST':
-		email = request.POST.get('email')
-		password = request.POST.get('password')
-		user = authenticate(request, email = email, password = password)
-		if user is not None:
-			login(request, user)
-			return redirect('profilePage')
-		else:
-			messages.info(request, "Le mot de passe ou l'adresse mail fourni(e) est incorrect(e) ! Essayez à nouveau...")
-	
-	return render (request, 'accounts/login.html', locals())
-
 def logoutUser(request):
 	logout(request)
-	return redirect('loginPage')
+	return redirect('homePage')
+
+
+from tablib import Dataset
+
+def simple_upload_formation(request):
+	if request.method == 'POST':
+		formation_resource = FormationResource()
+		dataset = Dataset()
+		new_formation = request.FILES['myfile']
+
+		imported_data = dataset.load(new_formation.read())
+		result = formation_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+		if not result.has_errors():
+			formation_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+	return redirect('homePage')
+
+def simple_upload_profession(request):
+	if request.method == 'POST':
+		profession_resource = professionResource()
+		dataset = Dataset()
+		new_profession = request.FILES['myfile']
+
+		imported_data = dataset.load(new_profession.read())
+		result = profession_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+		if not result.has_errors():
+			profession_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+	return redirect('homePage')
+
+def simple_upload_location(request):
+	if request.method == 'POST':
+		location_resource = locationResource()
+		dataset = Dataset()
+		new_location = request.FILES['myfile']
+
+		imported_data = dataset.load(new_location.read())
+		result = location_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+		if not result.has_errors():
+			location_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+	return redirect('homePage')
+
+def simple_upload_diplome(request):
+	if request.method == 'POST':
+		diplome_resource = diplomeResource()
+		dataset = Dataset()
+		new_diplome = request.FILES['myfile']
+
+		imported_data = dataset.load(new_diplome.read())
+		result = diplome_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+		if not result.has_errors():
+			diplome_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+	return redirect('homePage')

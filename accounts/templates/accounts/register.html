@@ -11,7 +11,7 @@
 		{{form.errors}}
 		<form action = "" method = "POST" cf-form>
 			{% csrf_token %}
-			<p>Email</p>
+			<p cf-question>Email</p>
 			{{form.email}}
 			<p>Prénom</p>
 			{{form.first_name}}
