@@ -1,0 +1,15 @@
+:root
+{
+	--main-color : #0F1E6D;
+	--text-color : #3E4AB8;
+	--background-color : #F4F2EF;
+	--second-color : #C8B59A;
+}
+
+@font-face
+{
+	font-family: 'montserrat-alternates';
+	src : url('montserrat-alternates.ttf') format('truetype'),
+		  url('montserrat-alternates.otf') format('otf');
+
+}

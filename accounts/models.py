@@ -48,6 +48,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 	diplome = models.CharField(max_length = 100, null = True, blank = True)
 	curriculum_vitae = models.FileField(null = True, blank = True,upload_to = 'curriculums/', validators = [FileExtensionValidator(allowed_extensions = ['pdf'])])
 	is_first_job = models.BooleanField(null = True, blank = True, default = False)
+	last_company = models.CharField(null = True, blank = True, default = '', max_length = 100)
 	
 	#employeur uniquement
 

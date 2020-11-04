@@ -17,7 +17,7 @@ class CustomUserAdmin(UserAdmin):
                 ('Informations personnelles', {'fields': ('role', 'first_name', 'last_name',
                                                          'birthdate', 'age', 'profession', 'diplome', 
                                                          'formation', 'location', 'profile_image', 'curriculum_vitae', 
-                                                         'contrat', 'is_first_job' )}),
+                                                         'contrat', 'is_first_job', 'last_company' )}),
                 ('Informations de contact', {'fields':('email', 'password')}),
                 ('Permissions', {'fields': ('is_staff', 'is_active')}), ('Key moments', {'fields': ('last_login', 'date_joined')}),
             )

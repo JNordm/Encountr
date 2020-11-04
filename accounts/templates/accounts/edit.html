@@ -4,6 +4,10 @@
 <html>
 <head>
 	<title>{% block title %}Modifier votre profil - Encountr{% endblock %}</title>
+	{% block urls %}
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts/edit.css' %}">
+	<script type="text/javascript" src="{% static 'accounts/edit.js' %}"></script>
+	{% endblock %}
 </head>
 <body>
 	{% block section %}
@@ -55,7 +59,13 @@
 					<h4>Ajouter votre CV (facultatif)</h4>
 					{{form.curriculum_vitae}}
 
-
+					<h4>Premier emploi</h4>
+					{{form.is_first_job}}
+					{% if request.user.is_first_job == False %}
+					<h4>Dernière entreprise</h4>
+					{{form.last_company}}
+					{% else %}
+					{% endif %}
 
 				{% elif request.user.role == "Employer" %}
 
@@ -105,6 +115,12 @@
 
 					<h4>Premier emploi</h4>
 					{{form.is_first_job}}
+					{% if request.user.is_first_job == False %}
+					<div id = "last_company"><h4>Dernière entreprise</h4>
+					{{form.last_company}}</div>
+					{% else %}
+					{% endif %}
+					
 
 				{% elif request.user.role == "Employer" %}
 

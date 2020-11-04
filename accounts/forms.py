@@ -68,7 +68,6 @@ class CustomUserCreationForm(UserCreationForm):
 		return birthdate
 
 class CustomUserChangeForm(UserChangeForm):
-	is_first_job = forms.BooleanField(required = False)
 	
 	class Meta:
 		results_profession = Profession.objects.all()
@@ -79,13 +78,15 @@ class CustomUserChangeForm(UserChangeForm):
 		fields = 	('email', 'first_name', 'birthdate', 
 					'last_name', 'role', 'profession', 
 					'formation', 'location', 'profile_pic', 
-					'curriculum_vitae', 'contrat', 'diplome', 'is_first_job')
+					'curriculum_vitae', 'contrat', 'diplome', 
+					'is_first_job', 'last_company')
 		widgets = {
 			'profession': ListTextWidget(data_list = results_profession, name = 'profession-list'),
 			'formation': ListTextWidget(data_list = results_formation, name = 'formation-list'),
 			'location': ListTextWidget(data_list = results_location, name = 'location-list'),
 			'diplome': ListTextWidget(data_list = results_diplome, name = 'diplome-list'),
 			'contrat': forms.Select(choices = CONTRATS ),
+			'is_first_job' : forms.CheckboxInput(attrs = {'id' : 'is_first_job', 'class':'is_first_job', 'onclick':'hideForm(this)'})
 		}
 
 class UploadFileForm(forms.Form):
