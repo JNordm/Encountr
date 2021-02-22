@@ -4,50 +4,72 @@
 <html>
 <head>
 	<title>{% block title %}Votre profil - Encountr{% endblock %}</title>
+	{% block urls %}<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">{% endblock %}
 </head>
 <body>
-	{% block section %}		
+	{% block section %}	
+	<section>
 		<h1>Votre profil</h1>
 		{% for message in messages %}
-		{{message}}
+		<small>{{message}}</small>
 		{% endfor %}<br>
 
-		{% if user.profile_pic%}		
-		<img src="{{user.profile_pic.url}}" width = "180" style ="border-radius: 50%"><br>
-		{% else %}
-		<img src="{% static 'accounts/default_profile_picture.svg' %}" width="200">
-		{% endif %}<br>
+		<div class="general_present">
+			<div class="profile_pic">
+				{% if user.profile_pic%}		
+				<img src="{{user.profile_pic.url}}"><br>
+				{% else %}
+				<img src="{% static 'accounts/default_profile_picture.svg' %}">
+				{% endif %}<br>
+			</div>
 
-		{{user.first_name}}
-		{{user.last_name}}<br>
+			<div class="text_info">
+				<div class="name">
+					<div class="first_name">
+						{{user.first_name}}
+					</div>&nbsp;
+					<div class="last_name">
+						{{user.last_name}}
+					</div>
+				</div>
+				<div class="age">{{user.age}} ans</div>
+				<div class="profession">{{user.profession}}</div>	
+			</div>
+		</div>
+		<br><br>
+
+		<div class="academic_present">
+			<div class="location">&#128205;&nbsp;{{user.location}}<br></div>
+			{% if user.role == "Employee" %}
+			<div class="formation">&#128218;&nbsp;{{user.formation}}<br></div>
+			<div class="diplome">&#127891;&nbsp;{{user.diplome}}<br></div>
+		</div>
+		<br>
+		<div class="statut">
+			{% endif %}
+			{% if user.role == "Employer" %}
+			<p>Employeur</p>
+			{% elif user.role == "Employee" %}
+			<p>En recherche d'emploi</p>
+			{% else %}
+			<p>Associé</p>
+			{% endif %}
+		</div>
 
 		{% if user.curriculum_vitae %}
 		<a href="media/{{user.curriculum_vitae}}">Votre CV</a>
 		{% else %}
 		<small>Pas de CV téléchargé</small>
-		{% endif %}
-
-		<p>{{user.age}} ans</p>		
-		{{user.profession}}<br>
-		{{user.location}}<br>
-		{% if user.role == "Employee" %}
-		{{user.formation}}<br>
-		{{user.diplome}}<br><br>
-		{% endif %}
-		{% if user.role == "Employer" %}
-		<p>Employeur</p>
-		{% elif user.role == "Employee" %}
-		<p>Employé</p>
-		{% else %}
-		<p>Associé</p>
-		{% endif %}
+		{% endif %}<br><br>
 			
-		{% if not request.user.contrat %}
-		<a href="{% url 'editProfile' %}">Compléter votre profil</a><br>
-		{% else %}
-		<a href="{% url 'editProfile' %}">Modifier votre profil</a><br>
-		{% endif %}
-		<a href="{% url 'editPassword' %}">Changer votre mot de passe</a><br>
-		<a href="{% url 'logoutUser' %}">Se déconnecter</a><br>
+		<div class="parametres">
+			<li>
+				<ul><a href="{% url 'editProfile' %}">Modifier votre profil</a></ul>
+				<ul><a href="{% url 'editRole' %}">Modifier votre statut</a></ul>
+				<ul><a href="{% url 'editPassword' %}">Changer votre mot de passe</a></ul>
+				<ul><a href="{% url 'logoutUser' %}">Se déconnecter</a></ul>
+			</li>
+		</div>
+	</section>	
 	{% endblock %}
 </html>

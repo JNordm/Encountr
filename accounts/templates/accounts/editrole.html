@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Modifier votre statut - Encountr{% endblock %}</title>
+	{% block urls %}
+	<link rel="stylesheet" type="text/css" href="{% static 'accounts/edit.css' %}">
+	<script type="text/javascript" src="{% static 'accounts/edit.js' %}"></script>
+	{% endblock %}
+</head>
+<body>
+{% block section %}
+{{form.errors}}
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<h4>Modifier votre statut</h4>
+			<p>Je recherche {{form.role}}</p>
+		<input type="submit" value="Valider">
+		</form>
+{% endblock %}
+</body>
+</html>

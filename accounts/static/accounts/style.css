@@ -1,0 +1,59 @@
+:root
+{
+	--main-color : #0F1E6D;
+	--text-color : #3E4AB8;
+	--background-color : #F4F2EF;
+	--second-color : #C8B59A;
+}
+
+@font-face
+{
+	font-family: 'montserrat-alternates';
+	src : url('montserrat-alternates.ttf') format('truetype'),
+		  url('montserrat-alternates.otf') format('otf');
+
+}
+
+html, body
+{
+	height: 100%;
+	padding : 0;
+	background: #f1f1f1;
+	font-family: 'montserrat-alternates';
+	scroll-behavior: smooth;
+}
+
+section
+{
+	margin-left: 2%;
+}
+
+h1
+{
+	color : var(--main-color);
+}
+
+.profile_pic img
+{
+	height: 80px;
+}
+
+.general_present
+{
+	display: flex;
+}
+
+.name
+{
+	display: flex;
+}
+
+.text_info
+{
+	margin-left: 1%;
+}
+
+.parametres a
+{
+	font-size: 10px;
+}

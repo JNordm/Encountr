@@ -8,7 +8,6 @@ from django.utils import timezone
 from datetime import date
 from django.db.models.expressions import F
 from django.core.validators import MaxValueValidator, MinValueValidator
-from mapbox_location_field.models import LocationField
 from django.utils.html import format_html
 from django.core.validators import FileExtensionValidator
 
@@ -49,6 +48,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 	curriculum_vitae = models.FileField(null = True, blank = True,upload_to = 'curriculums/', validators = [FileExtensionValidator(allowed_extensions = ['pdf'])])
 	is_first_job = models.BooleanField(null = True, blank = True, default = False)
 	last_company = models.CharField(null = True, blank = True, default = '', max_length = 100)
+
 	
 	#employeur uniquement
 

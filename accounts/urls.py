@@ -19,6 +19,7 @@ path('activate/', TemplateView.as_view(template_name='accounts/activatepage.html
 path('activate/<uidb64>/<token>/', views.activateUser, name = 'activateUser'),
 
 path('edit/', views.editProfile, name = 'editProfile'),
+path('editrole/', views.editRole, name = 'editRole'),
 path('editpassword/', views.editPassword, name = 'editPassword'),
 
 path('resetpassword/', PasswordResetView.as_view(template_name = 'accounts/passwordreset.html'), name = 'password_reset'),

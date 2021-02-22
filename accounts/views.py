@@ -12,7 +12,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.http import HttpResponse
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm, UploadFileForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm, UploadFileForm, CustomUserStatusForm
 from .models import CustomUser, Profession, Formation, Location, Diplome
 from .resources import ProfessionResource
 # Create your views here.
@@ -34,6 +34,19 @@ def editProfile(request):
 	else:
 		form = CustomUserChangeForm(instance = request.user)
 		return render(request, 'accounts/edit.html', locals())
+
+def editRole(request):
+	if request.method == "POST":
+		form = CustomUserStatusForm(request.POST, instance = request.user)
+		if form.is_valid:
+			form.save()
+			messages.success(request, 'Votre compte a bien été mis à jour !')
+			return redirect('profilePage')
+		else : 
+			return render(request, 'accounts/editrole.html', locals())
+	else:
+		form = CustomUserStatusForm(instance = request.user)
+		return render(request, 'accounts/editrole.html', locals())
 
 def editPassword(request):
 	if request.method == 'POST':

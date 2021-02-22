@@ -31,7 +31,7 @@ html, body
 	overflow: hidden;
 	background : url("/static/pages/homepage.jpg") no-repeat center;
 	background-size: cover;
-	top : -56px;
+	top : -57px;
 }
 
 .container
@@ -289,7 +289,7 @@ form.sign-up-form
 
 .titleform
 {
-	font-size: 50px;
+	font-size: 40px;
 	font-weight: 600;
 	color: #000;
 	margin-bottom: 10px;

@@ -67,6 +67,15 @@ class CustomUserCreationForm(UserCreationForm):
 			raise forms.ValidationError('Vous devez être majeur pour poursuivre.')
 		return birthdate
 
+class CustomUserStatusForm(UserChangeForm):
+
+	class Meta(UserCreationForm):
+		model = CustomUser
+		fields = ('role', )
+		widgets = {
+			'role':forms.Select(choices = ROLES, attrs = {'placeholder':"Vous recherchez", "id":"role-input", "class":"role-input"}),
+		}
+
 class CustomUserChangeForm(UserChangeForm):
 	
 	class Meta:
@@ -79,12 +88,17 @@ class CustomUserChangeForm(UserChangeForm):
 					'last_name', 'role', 'profession', 
 					'formation', 'location', 'profile_pic', 
 					'curriculum_vitae', 'contrat', 'diplome', 
-					'is_first_job', 'last_company')
+					'is_first_job', 'last_company',)
 		widgets = {
-			'profession': ListTextWidget(data_list = results_profession, name = 'profession-list'),
-			'formation': ListTextWidget(data_list = results_formation, name = 'formation-list'),
-			'location': ListTextWidget(data_list = results_location, name = 'location-list'),
-			'diplome': ListTextWidget(data_list = results_diplome, name = 'diplome-list'),
+			'email': EmailInput(attrs= {'class' : 'userinput'}),
+			'first_name' : TextInput(attrs= {'class' : 'userinput'}),
+			'last_name' : TextInput(attrs= {'class' : 'userinput'}),
+			'birthdate' : DateInput(attrs= {'class' : 'userinput'}),
+			'last_company' : TextInput(attrs= {'class' : 'userinput'}),
+			'profession': ListTextWidget(data_list = results_profession, name = 'profession-list', attrs= {'class' : 'userinput'}),
+			'formation': ListTextWidget(data_list = results_formation, name = 'formation-list', attrs= {'class' : 'userinput'}),
+			'location': ListTextWidget(data_list = results_location, name = 'location-list', attrs= {'class' : 'userinput'}),
+			'diplome': ListTextWidget(data_list = results_diplome, name = 'diplome-list', attrs= {'class' : 'userinput'}),
 			'contrat': forms.Select(choices = CONTRATS ),
 			'is_first_job' : forms.CheckboxInput(attrs = {'id' : 'is_first_job', 'class':'is_first_job', 'onclick':'hideForm(this)'})
 		}

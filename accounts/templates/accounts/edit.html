@@ -21,8 +21,10 @@
 			{% csrf_token %}	
 			{% if not request.user.contrat %}
 
-				<h4>Modifier votre statut</h4>
-				<p>Je recherche {{form.role}}</p>
+				<div class="status" style="visibility: hidden;">
+					<h4>Modifier votre statut</h4>
+					<p>Je recherche {{form.role}}</p>
+				</div>
 
 				<h4>Modifier votre prénom</h4>
 				{{form.first_name}}
@@ -61,11 +63,24 @@
 
 					<h4>Premier emploi</h4>
 					{{form.is_first_job}}
-					{% if request.user.is_first_job == False %}
-					<h4>Dernière entreprise</h4>
-					{{form.last_company}}
-					{% else %}
-					{% endif %}
+
+					<p>Je n'ai jamais eu d'expérience professionnelle</p>
+					<input type="radio" onclick= 'isfirstJob()' value= 'never' name = 'firstjob'>
+					
+					<p>J'ai déjà eu une expérience professionnelle</p>
+					<input type = "radio" onclick = 'isnotfirstJob()' value= 'already' name = 'firstjob' checked>
+
+
+					<div class="displayornot">
+						<h4>Dernière entreprise</h4>
+						{{form.last_company}}
+					</div>
+
+					<div class="iffirstjob">
+						<h4>Date de sortie d'études</h4>
+						{{form.studiesend}}
+					</div>
+
 
 				{% elif request.user.role == "Employer" %}
 
@@ -75,8 +90,10 @@
 
 			{% else %}
 
-				<h4>Modifier votre statut</h4>
-				<p>Je recherche {{form.role}}</p>
+				<div class="status" style="visibility: hidden;">
+					<h4>Modifier votre statut</h4>
+					<p>Je recherche {{form.role}}</p>
+				</div>
 
 				<h4>Modifier votre prénom</h4>
 				{{form.first_name}}
@@ -115,12 +132,9 @@
 
 					<h4>Premier emploi</h4>
 					{{form.is_first_job}}
-					{% if request.user.is_first_job == False %}
-					<div id = "last_company"><h4>Dernière entreprise</h4>
-					{{form.last_company}}</div>
-					{% else %}
-					{% endif %}
-					
+
+					<h4>Dernière entreprise</h4>
+					{{form.last_company}}
 
 				{% elif request.user.role == "Employer" %}
 
@@ -134,6 +148,23 @@
 			{% endif %}
 		<input type="submit" value="Valider">
 		</form>
+
+		<script type="text/javascript">
+			function isfirstJob(){
+				let displayOrNot = document.querySelector('.displayornot');
+				let iffirstJob = document.querySelector('.iffirstjob');
+				displayOrNot.style.display = 'none';
+				iffirstJob.style.display = 'block';
+
+			}
+
+			function isnotfirstJob(){
+				let iffirstJob = document.querySelector('.iffirstjob');
+				let displayOrNot = document.querySelector('.displayornot');
+				iffirstJob.style.display = 'none';
+				displayOrNot.style.display = 'block';
+			}
+		</script>
 	{% endblock %}
 </body>
 </html>
